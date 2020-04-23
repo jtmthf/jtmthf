@@ -23,7 +23,7 @@ const Layout = ({ children }: Props) => {
     <>
       <Header siteTitle={data.site.siteMetadata.title} />
       <div
-        style={{
+        css={{
           margin: `0 auto`,
           maxWidth: 960,
           padding: `0 1.0875rem 1.45rem`,

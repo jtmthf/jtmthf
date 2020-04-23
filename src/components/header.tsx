@@ -1,5 +1,6 @@
 import { Link } from 'gatsby';
 import React from 'react';
+import { css } from '@emotion/core';
 
 type Props = {
   siteTitle: string;
@@ -7,13 +8,13 @@ type Props = {
 
 const Header = ({ siteTitle }: Props) => (
   <header
-    style={{
+    css={{
       background: 'rebeccapurple',
       marginBottom: '1.45rem',
     }}
   >
     <div
-      style={{
+      css={{
         margin: '0 auto',
         maxWidth: 960,
         padding: '1.45rem 1.0875rem',
@@ -22,7 +23,7 @@ const Header = ({ siteTitle }: Props) => (
       <h1 style={{ margin: 0 }}>
         <Link
           to="/"
-          style={{
+          css={{
             color: 'white',
             textDecoration: 'none',
           }}
