@@ -1550,7 +1550,7 @@
   resolved "https://registry.yarnpkg.com/@types/yoga-layout/-/yoga-layout-1.9.1.tgz#6c00e4a151a9a529397d580e2cf6f3947a42a928"
   integrity sha512-OpfgQXWLZn5Dl7mOd8dBNcV8NywXbYYoHjUpa64vJ/RQABaxMzJ5bVicKLGIvIiMnQPtPgKNgXb5jkv9fkOQtw==
 
-"@typescript-eslint/eslint-plugin@^2.24.0":
+"@typescript-eslint/eslint-plugin@^2.24.0", "@typescript-eslint/eslint-plugin@^2.29.0":
   version "2.29.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/eslint-plugin/-/eslint-plugin-2.29.0.tgz#c9efab7624e3dd6d144a0e4577a541d1bd42c2ac"
   integrity sha512-X/YAY7azKirENm4QRpT7OVmzok02cSkqeIcLmdz6gXUQG4Hk0Fi9oBAynSAyNXeGdMRuZvjBa0c1Lu0dn/u6VA==
@@ -1570,7 +1570,7 @@
     eslint-scope "^5.0.0"
     eslint-utils "^2.0.0"
 
-"@typescript-eslint/parser@^2.24.0":
+"@typescript-eslint/parser@^2.24.0", "@typescript-eslint/parser@^2.29.0":
   version "2.29.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/parser/-/parser-2.29.0.tgz#6e3c4e21ed6393dc05b9d8b47f0b7e731ef21c9c"
   integrity sha512-H78M+jcu5Tf6m/5N8iiFblUUv+HJDguMSdFfzwa6vSg9lKR8Mk9BsgeSjO8l2EshKnJKcbv0e8IDDOvSNjl0EA==
@@ -4654,7 +4654,7 @@ escape-string-regexp@1.0.5, escape-string-regexp@^1.0.2, escape-string-regexp@^1
   resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz#1b61c0562190a8dff6ae3bb2cf0200ca130b86d4"
   integrity sha1-G2HAViGQqN/2rjuyzwIAyhMLhtQ=
 
-eslint-config-react-app@^5.2.0:
+eslint-config-react-app@^5.2.0, eslint-config-react-app@^5.2.1:
   version "5.2.1"
   resolved "https://registry.yarnpkg.com/eslint-config-react-app/-/eslint-config-react-app-5.2.1.tgz#698bf7aeee27f0cea0139eaef261c7bf7dd623df"
   integrity sha512-pGIZ8t0mFLcV+6ZirRgYK6RVqUIKRIi9MmgzUEmrIknsn3AdO0I32asO86dJgloHq+9ZPl8UIg8mYrvgP5u2wQ==
@@ -4695,6 +4695,13 @@ eslint-plugin-flowtype@^3.13.0:
   dependencies:
     lodash "^4.17.15"
 
+eslint-plugin-flowtype@^4.7.0:
+  version "4.7.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-flowtype/-/eslint-plugin-flowtype-4.7.0.tgz#903a6ea3eb5cbf4c7ba7fa73cc43fc39ab7e4a70"
+  integrity sha512-M+hxhSCk5QBEValO5/UqrS4UunT+MgplIJK5wA1sCtXjzBcZkpTGRwxmLHhGpbHcrmQecgt6ZL/KDdXWqGB7VA==
+  dependencies:
+    lodash "^4.17.15"
+
 eslint-plugin-graphql@^3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/eslint-plugin-graphql/-/eslint-plugin-graphql-3.1.1.tgz#640f7f73f12cee2f7145140bd2ff21694018bff5"
@@ -4703,7 +4710,7 @@ eslint-plugin-graphql@^3.1.1:
     graphql-config "^2.0.1"
     lodash "^4.11.1"
 
-eslint-plugin-import@^2.20.1:
+eslint-plugin-import@^2.20.1, eslint-plugin-import@^2.20.2:
   version "2.20.2"
   resolved "https://registry.yarnpkg.com/eslint-plugin-import/-/eslint-plugin-import-2.20.2.tgz#91fc3807ce08be4837141272c8b99073906e588d"
   integrity sha512-FObidqpXrR8OnCh4iNsxy+WACztJLXAHBO5hK79T1Hc77PgQZkyDGA5Ag9xAvRpglvLNxhH/zSmZ70/pZ31dHg==
@@ -4735,6 +4742,11 @@ eslint-plugin-jsx-a11y@^6.2.3:
     emoji-regex "^7.0.2"
     has "^1.0.3"
     jsx-ast-utils "^2.2.1"
+
+eslint-plugin-react-hooks@2.x:
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-react-hooks/-/eslint-plugin-react-hooks-2.5.1.tgz#4ef5930592588ce171abeb26f400c7fbcbc23cd0"
+  integrity sha512-Y2c4b55R+6ZzwtTppKwSmK/Kar8AdLiC2f9NADCuxbcTgPPg41Gyqa6b9GppgXSvCtkRw43ZE86CT5sejKC6/g==
 
 eslint-plugin-react-hooks@^1.7.0:
   version "1.7.0"
@@ -10401,7 +10413,7 @@ prepend-http@^2.0.0:
   resolved "https://registry.yarnpkg.com/prepend-http/-/prepend-http-2.0.0.tgz#e92434bfa5ea8c19f41cdfd401d741a3c819d897"
   integrity sha1-6SQ0v6XqjBn0HN/UAddBo8gZ2Jc=
 
-prettier@2.0.5, prettier@^2.0.4:
+prettier@^2.0.4, prettier@^2.0.5:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.0.5.tgz#d6d56282455243f2f92cc1716692c08aa31522d4"
   integrity sha512-7PtVymN48hGcO4fGjybyBSIWDsLU4H4XlvOHfq91pz9kkGlonzwTfYkaIEwiRg/dAJF9YlbsduBAgtYLi+8cFg==
@@ -12808,6 +12820,11 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
+
+typescript@^3.8.3:
+  version "3.8.3"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.8.3.tgz#409eb8544ea0335711205869ec458ab109ee1061"
+  integrity sha512-MYlEfn5VrLNsgudQTVJeNaQFUAI7DkhnOjdpAp4T+ku1TfQClewlbSuTVHiA+8skNBgaf02TL/kLOvig4y3G8w==
 
 unbzip2-stream@^1.0.9:
   version "1.4.2"
