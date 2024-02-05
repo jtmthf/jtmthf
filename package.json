@@ -1,4 +1,5 @@
 {
+  "name": "jtmthf",
   "private": true,
   "scripts": {
     "dev": "next",
