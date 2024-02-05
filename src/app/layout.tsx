@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/react";
 import Footer from "@/app/_components/footer";
 import { CMS_NAME, HOME_OG_IMAGE_URL } from "@/lib/constants";
 import type { Metadata } from "next";
@@ -58,6 +59,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <div className="min-h-screen">{children}</div>
         <Footer />
+        <Analytics />
       </body>
     </html>
   );
