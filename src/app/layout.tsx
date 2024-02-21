@@ -1,5 +1,5 @@
 import Footer from '@/app/_components/footer';
-import { CMS_NAME, HOME_OG_IMAGE_URL, SITE_URL } from '@/lib/constants';
+import { HOME_OG_IMAGE_URL, SITE_URL } from '@/lib/constants';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata } from 'next';
@@ -11,8 +11,8 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: `Next.js Blog Example with ${CMS_NAME}`,
-  description: `A statically generated blog example using Next.js and ${CMS_NAME}.`,
+  title: "Jack Moore's Blog",
+  description: 'Jack Moore’s personal blog.',
   openGraph: {
     images: [HOME_OG_IMAGE_URL],
   },

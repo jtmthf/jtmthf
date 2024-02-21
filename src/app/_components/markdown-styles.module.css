@@ -16,3 +16,7 @@
 .markdown h3 {
   @apply mb-4 mt-8 text-2xl leading-snug;
 }
+
+.markdown pre {
+  @apply overflow-auto rounded-lg bg-slate-100 p-4;
+}
