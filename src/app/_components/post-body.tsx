@@ -1,11 +1,12 @@
 import cx from 'clsx';
+import { ReactNode } from 'react';
 import markdownStyles from './markdown-styles.module.css';
 
 type Props = {
-  content: string;
+  children: ReactNode;
 };
 
-export function PostBody({ content }: Props) {
+export function PostBody({ children }: Props) {
   return (
     <div className="mx-auto max-w-2xl">
       <div
@@ -13,8 +14,9 @@ export function PostBody({ content }: Props) {
           'prose lg:prose-xl prose-pre:bg-transparent prose-pre:text-black',
           markdownStyles['markdown'],
         )}
-        dangerouslySetInnerHTML={{ __html: content }}
-      />
+      >
+        {children}
+      </div>
     </div>
   );
 }

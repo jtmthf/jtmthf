@@ -1,6 +1,6 @@
 import Container from '@/app/_components/container';
 
-export function Footer() {
+export default function Footer() {
   return (
     <footer className="border-t border-neutral-200 bg-neutral-50">
       <Container>
@@ -18,5 +18,3 @@ export function Footer() {
     </footer>
   );
 }
-
-export default Footer;
