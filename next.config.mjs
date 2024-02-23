@@ -1,11 +1,27 @@
 // @ts-check
 
 import createMDX from '@next/mdx';
+import rehypeShikiFromHighlighter from '@shikijs/rehype/core';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
-import rehypeHighlight from 'rehype-highlight';
 import rehypeSlug from 'rehype-slug';
 import remarkFrontmatter from 'remark-frontmatter';
 import remarkGfm from 'remark-gfm';
+import { getHighlighterCore } from 'shiki/core';
+import getWasm from 'shiki/wasm';
+
+const highlighter = await getHighlighterCore({
+  themes: [
+    import('shiki/themes/github-light.mjs'),
+    import('shiki/themes/github-dark.mjs'),
+  ],
+  langs: [
+    import('shiki/langs/json.mjs'),
+    import('shiki/langs/sh.mjs'),
+    import('shiki/langs/tsx.mjs'),
+    import('shiki/langs/typescript.mjs'),
+  ],
+  loadWasm: getWasm,
+});
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -21,7 +37,16 @@ const withMDX = createMDX({
     rehypePlugins: [
       rehypeSlug,
       [rehypeAutolinkHeadings, { behavior: 'wrap' }],
-      rehypeHighlight,
+      [
+        rehypeShikiFromHighlighter,
+        highlighter,
+        {
+          themes: {
+            light: 'github-light',
+            dark: 'github-dark',
+          },
+        },
+      ],
     ],
   },
 });

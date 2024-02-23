@@ -14,6 +14,9 @@ dependencies:
   '@next/mdx':
     specifier: ^14.1.0
     version: 14.1.0(@mdx-js/loader@3.0.1)(@mdx-js/react@3.0.1)
+  '@shikijs/rehype':
+    specifier: ^1.1.6
+    version: 1.1.6
   '@types/mdx':
     specifier: ^2.0.11
     version: 2.0.11
@@ -44,9 +47,6 @@ dependencies:
   rehype-autolink-headings:
     specifier: ^7.1.0
     version: 7.1.0
-  rehype-highlight:
-    specifier: ^7.0.0
-    version: 7.0.0
   rehype-slug:
     specifier: ^6.0.0
     version: 6.0.0
@@ -56,6 +56,9 @@ dependencies:
   remark-gfm:
     specifier: ^4.0.0
     version: 4.0.0
+  shiki:
+    specifier: ^1.1.6
+    version: 1.1.6
   to-vfile:
     specifier: ^8.0.0
     version: 8.0.0
@@ -421,6 +424,27 @@ packages:
   /@rushstack/eslint-patch@1.7.2:
     resolution: {integrity: sha512-RbhOOTCNoCrbfkRyoXODZp75MlpiHMgbE5MEBZAnnnLyQNgrigEj4p0lzsMDyc1zVsJDLrivB58tgg3emX0eEA==}
     dev: true
+
+  /@shikijs/core@1.1.6:
+    resolution: {integrity: sha512-kt9hhvrWTm0EPtRDIsoAZnSsFlIDBVBBI5CQewpA/NZCPin+MOKRXg+JiWc4y+8fZ/v0HzfDhu/UC+OTZGMt7A==}
+    dev: false
+
+  /@shikijs/rehype@1.1.6:
+    resolution: {integrity: sha512-Tk7PKoSUKDdOffmZgbCAh7FjI5/g56iU5AcecPRJ/8RoVqyx9UxJGB6N9my49PI8X6LV1M3IUHFjcuVYEppsrA==}
+    dependencies:
+      '@shikijs/transformers': 1.1.6
+      '@types/hast': 3.0.4
+      hast-util-to-string: 3.0.0
+      shiki: 1.1.6
+      unified: 11.0.4
+      unist-util-visit: 5.0.0
+    dev: false
+
+  /@shikijs/transformers@1.1.6:
+    resolution: {integrity: sha512-R+eI1I9sQv0MCJyfR4kAG1G1SKSctw5ILszP0tHVrAgzSHWTpaHbXreZrDueahqtUCNHjt+MKmKJ8EMFtiitOQ==}
+    dependencies:
+      shiki: 1.1.6
+    dev: false
 
   /@swc/helpers@0.5.2:
     resolution: {integrity: sha512-E4KcWTpoLHqwPHLxidpOqQbcrZVgi0rsmmZXUle1jXmJfuIf/UWpczUJ7MZZ5tlxytgJXyp0w4PGkkeLiuIdZw==}
@@ -2154,24 +2178,10 @@ packages:
       '@types/hast': 3.0.4
     dev: false
 
-  /hast-util-to-text@4.0.0:
-    resolution: {integrity: sha512-EWiE1FSArNBPUo1cKWtzqgnuRQwEeQbQtnFJRYV1hb1BWDgrAlBU0ExptvZMM/KSA82cDpm2sFGf3Dmc5Mza3w==}
-    dependencies:
-      '@types/hast': 3.0.4
-      '@types/unist': 3.0.2
-      hast-util-is-element: 3.0.0
-      unist-util-find-after: 5.0.0
-    dev: false
-
   /hast-util-whitespace@3.0.0:
     resolution: {integrity: sha512-88JUN06ipLwsnv+dVn+OIYOvAuvBMy/Qoi6O7mQHxdPXpjy+Cd6xRkWwux7DKO+4sYILtLBRIKgsdpS2gQc7qw==}
     dependencies:
       '@types/hast': 3.0.4
-    dev: false
-
-  /highlight.js@11.9.0:
-    resolution: {integrity: sha512-fJ7cW7fQGCYAkgv4CPfwFHrfd/cLS4Hau96JuJ+ZTOWhjnhoeN1ub1tFmALm/+lW5z4WCAuAV9bm05AP0mS6Gw==}
-    engines: {node: '>=12.0.0'}
     dev: false
 
   /human-signals@5.0.0:
@@ -2646,14 +2656,6 @@ packages:
     hasBin: true
     dependencies:
       js-tokens: 4.0.0
-
-  /lowlight@3.1.0:
-    resolution: {integrity: sha512-CEbNVoSikAxwDMDPjXlqlFYiZLkDJHwyGu/MfOsJnF3d7f3tds5J3z8s/l9TMXhzfsJCCJEAsD78842mwmg0PQ==}
-    dependencies:
-      '@types/hast': 3.0.4
-      devlop: 1.1.0
-      highlight.js: 11.9.0
-    dev: false
 
   /lru-cache@10.2.0:
     resolution: {integrity: sha512-2bIM8x+VAf6JT4bKAljS1qUWgMsqZRPGJS6FSahIMPVvctcNhyVp7AJu7quxOW9jwkryBReKZY5tY5JYv2n/7Q==}
@@ -3853,16 +3855,6 @@ packages:
       unist-util-visit: 5.0.0
     dev: false
 
-  /rehype-highlight@7.0.0:
-    resolution: {integrity: sha512-QtobgRgYoQaK6p1eSr2SD1i61f7bjF2kZHAQHxeCHAuJf7ZUDMvQ7owDq9YTkmar5m5TSUol+2D3bp3KfJf/oA==}
-    dependencies:
-      '@types/hast': 3.0.4
-      hast-util-to-text: 4.0.0
-      lowlight: 3.1.0
-      unist-util-visit: 5.0.0
-      vfile: 6.0.1
-    dev: false
-
   /rehype-slug@6.0.0:
     resolution: {integrity: sha512-lWyvf/jwu+oS5+hL5eClVd3hNdmwM1kAC0BUvEGD19pajQMIzcNUd/k9GsfQ+FfECvX+JE+e9/btsKH0EjJT6A==}
     dependencies:
@@ -4086,6 +4078,12 @@ packages:
     resolution: {integrity: sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==}
     engines: {node: '>=8'}
     dev: true
+
+  /shiki@1.1.6:
+    resolution: {integrity: sha512-j4pcpvaQWHb42cHeV+W6P+X/VcK7Y2ctvEham6zB8wsuRQroT6cEMIkiUmBU2Nqg2qnHZDH6ZyRdVldcy0l6xw==}
+    dependencies:
+      '@shikijs/core': 1.1.6
+    dev: false
 
   /side-channel@1.0.5:
     resolution: {integrity: sha512-QcgiIWV4WV7qWExbN5llt6frQB/lBven9pqliLXfGPB+K9ZYXxDozp0wLkHS24kWCm+6YXH/f0HhnObZnZOBnQ==}
@@ -4548,13 +4546,6 @@ packages:
       is-plain-obj: 4.1.0
       trough: 2.2.0
       vfile: 6.0.1
-    dev: false
-
-  /unist-util-find-after@5.0.0:
-    resolution: {integrity: sha512-amQa0Ep2m6hE2g72AugUItjbuM8X8cGQnFoHk0pGfrFeT9GZhzN5SW8nRsiGKK7Aif4CrACPENkA6P/Lw6fHGQ==}
-    dependencies:
-      '@types/unist': 3.0.2
-      unist-util-is: 6.0.0
     dev: false
 
   /unist-util-is@6.0.0:

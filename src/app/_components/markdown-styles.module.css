@@ -18,5 +18,5 @@
 }
 
 .markdown pre {
-  @apply overflow-auto rounded-lg bg-slate-100 p-4;
+  @apply overflow-auto rounded-lg border p-4;
 }
