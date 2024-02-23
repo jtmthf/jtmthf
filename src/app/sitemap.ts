@@ -8,16 +8,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     {
       url: 'https://jtmthf.com',
       lastModified: new Date(),
-      changefreq: 'daily',
+      changeFrequency: 'daily',
       priority: 1,
     },
     ...allPosts.map((post) => {
       return {
         url: `https://jtmthf.com/posts/${post.slug}`,
         lastModified: new Date(),
-        changefreq: 'weekly',
+        changeFrequency: 'weekly',
         priority: 0.5,
-      };
+      } satisfies MetadataRoute.Sitemap[number];
     }),
-  ] satisfies MetadataRoute.Sitemap;
+  ];
 }
