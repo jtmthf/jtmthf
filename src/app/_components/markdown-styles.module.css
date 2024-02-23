@@ -20,3 +20,15 @@
 .markdown pre {
   @apply overflow-auto rounded-lg border p-4;
 }
+
+.markdown ul {
+  @apply list-disc pl-8;
+}
+
+.markdown p > code {
+  @apply bg-muted rounded px-1 py-1;
+}
+
+.markdown a {
+  @apply text-primary underline;
+}
