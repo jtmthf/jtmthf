@@ -17,6 +17,7 @@ const highlighter = await getHighlighterCore({
   langs: [
     import('shiki/langs/json.mjs'),
     import('shiki/langs/sh.mjs'),
+    import('shiki/langs/sql.mjs'),
     import('shiki/langs/tsx.mjs'),
     import('shiki/langs/typescript.mjs'),
   ],

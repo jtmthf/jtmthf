@@ -1,0 +1,120 @@
+---
+title: 'Building a simple analytics dashboard with PostgreSQL and Grafana'
+excerpt:
+  'In this post, we will build a simple analytics dashboard using PostgreSQL and
+  Grafana. We will use a sample dataset to demonstrate how to create a time
+  series chart and a table to display the data.'
+coverImage: '/assets/blog/postgres-grafana-analytics/funnel.png'
+date: '2024-02-25T00:17:46.299Z'
+author:
+  name: Jack Moore
+  picture: '/assets/blog/authors/jack.png'
+ogImage:
+  url: '/assets/blog/postgres-grafana-analytics/funnel.png'
+---
+
+When adding analytics to your web application, the common thought is to use a
+third-party service like Google Analytics or Mixpanel. These services are great
+for many use cases, but sometimes you need more control over your data. In this
+post, we will build a simple analytics dashboard using PostgreSQL and Grafana.
+We will use a sample dataset to demonstrate how to create a time series chart
+and a table to display the data.
+
+Let's imagine a simple schema for persisting events where each event has an
+`id`, `user_id`, `event_name`, and `time`. We will use this schema to
+demonstrate how to build a simple analytics dashboard.
+
+```sql
+CREATE TABLE IF NOT EXISTS events (
+  id BIGSERIAL PRIMARY KEY,
+  user_id BIGINT NOT NULL,
+  event_name TEXT NOT NULL,
+  time TIMESTAMP NOT NULL
+);
+```
+
+To insert some sample data, we can use the following SQL:
+
+```sql
+INSERT INTO events (user_id, event_name, time)
+VALUES
+  (1, 'login', '2024-02-25 00:17:46'),
+  (1, 'click', '2024-02-25 00:18:46'),
+  (2, 'login', '2024-02-25 00:19:46'),
+  (2, 'click', '2024-02-25 00:20:46'),
+  (3, 'login', '2024-02-25 00:21:46'),
+  (3, 'click', '2024-02-25 00:22:46');
+```
+
+To query the data, we can use the following SQL:
+
+```sql
+SELECT
+  sum(signup_page_viewed) as signup_page_viewed,
+  sum(email_entered) as email_entered,
+  sum(password_entered) as password_entered,
+  sum(signup_button_clicked) as signup_button_clicked
+FROM
+  (
+    SELECT
+      user_id,
+      1 as signup_page_viewed,
+      min(time) as signup_page_viewed_time
+    FROM
+      event
+    WHERE
+      event_name = 'signup_page_viewed'
+	  AND time BETWEEN ($__timeFrom()) AND ($__timeTo())
+    GROUP BY
+      user_id
+  ) e1
+  LEFT JOIN LATERAL (
+    SELECT
+      user_id,
+      1 as email_entered,
+      time as email_entered_time
+    FROM
+      event
+    WHERE
+      user_id = e1.user_id
+      AND event_name = 'email_entered'
+      AND time BETWEEN signup_page_viewed_time
+      AND ($__timeTo())
+    ORDER BY
+      time
+    LIMIT
+      1
+  ) e2 ON true LEFT JOIN LATERAL (
+    SELECT
+      user_id,
+      1 as password_entered,
+      time as password_entered_time
+    FROM
+      event
+    WHERE
+      user_id = e2.user_id
+      AND event_name = 'password_entered'
+      AND time BETWEEN email_entered_time
+      AND ($__timeTo())
+    ORDER BY
+      time
+    LIMIT
+      1
+  ) e3 ON true LEFT JOIN LATERAL (
+    SELECT
+      user_id,
+      1 as signup_button_clicked,
+      time as signup_button_clicked_time
+    FROM
+      event
+    WHERE
+      user_id = e3.user_id
+      AND event_name = 'signup_button_clicked'
+      AND time BETWEEN password_entered_time
+      AND ($__timeTo())
+    ORDER BY
+      time
+    LIMIT
+      1
+  ) e4 ON true
+```
