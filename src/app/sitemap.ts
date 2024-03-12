@@ -6,14 +6,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return [
     {
-      url: 'https://jtmthf.com',
+      url: 'https://www.jtmthf.com',
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 1,
     },
     ...allPosts.map((post) => {
       return {
-        url: `https://jtmthf.com/posts/${post.slug}`,
+        url: `https://www.jtmthf.com/posts/${post.slug}`,
         lastModified: new Date(),
         changeFrequency: 'weekly',
         priority: 0.5,
