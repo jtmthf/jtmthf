@@ -6,9 +6,13 @@ jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.42.1-jammy
     if: github.event.deployment_status.state == 'success'
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.deployment.ref }}
 
       - name: Enable Corepack
         run: corepack enable
