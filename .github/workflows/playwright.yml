@@ -25,13 +25,11 @@ jobs:
       - name: Install dependencies
         run: corepack enable && pnpm install
 
-      - name: Install Playwright Browsers
-        run: pnpm playwright install --with-deps
-
       - name: Run Playwright tests
         run: pnpm test:e2e
         env:
           BASE_URL: ${{ github.event.deployment_status.environment_url }}
+          HOME: /root
 
       - uses: actions/upload-artifact@v4
         if: always()
