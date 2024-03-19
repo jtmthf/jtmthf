@@ -5,7 +5,7 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
-import { ThemeProvider } from './_components/theme-provider';
+import { ThemeProvider } from 'next-themes';
 import { ThemeToggle } from './_components/theme-toggle';
 import './globals.css';
 
