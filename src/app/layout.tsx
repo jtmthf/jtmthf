@@ -6,6 +6,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
 import { ThemeProvider } from 'next-themes';
+import { Feed } from './_components/feed';
 import { ThemeToggle } from './_components/theme-toggle';
 import './globals.css';
 
@@ -17,6 +18,11 @@ export const metadata: Metadata = {
   description: 'Jack Moore’s personal blog.',
   openGraph: {
     images: [HOME_OG_IMAGE_URL],
+  },
+  alternates: {
+    types: {
+      'application/rss+xml': `${SITE_URL}/feed`,
+    },
   },
 };
 
@@ -36,6 +42,7 @@ export default function RootLayout({
         >
           <header>
             <nav className="flex justify-end p-8">
+              <Feed />
               <ThemeToggle />
             </nav>
           </header>
