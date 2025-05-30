@@ -117,20 +117,21 @@ and composes with its children when `asChild` is set. It's essentially a
 replacement for the below boilerplate had we not used twc.
 
 ```tsx
-const FormMessage = React.forwardRef<
-  HTMLSpanElement,
-  React.HTMLAttributes<HTMLSpanElement>
->(({ className, asChild = false, ...props }, ref) => {
+function FormMessage({
+  className,
+  asChild = false,
+  ...props
+}: React.HTMLAttributes<HTMLSpanElement> & { asChild?: boolean }) {
   const Comp = asChild ? Slot : 'span';
 
   return (
     <Comp
-      ref={ref}
+      data-slot="form-message"
       className={clsx('text-destructive text-sm font-medium', className)}
       {...props}
     />
   );
-});
+}
 ```
 
 clsx by itself doesn't handle conflicts between tailwind styles so we create a
@@ -182,17 +183,15 @@ type FormRootProps = Omit<
   ) => Promise<FormContextValue>;
 };
 
-const FormRoot = React.forwardRef<HTMLFormElement, FormRootProps>(
-  ({ action, ...props }, ref) => {
-    const [state, formAction] = useFormState(action, { errors: {} });
+function FormRoot({ action, ...props }: FormRootProps) {
+  const [state, formAction] = useFormState(action, { errors: {} });
 
-    return (
-      <FormContext.Provider value={state}>
-        <Form.Root {...props} action={formAction} ref={ref} />
-      </FormContext.Provider>
-    );
-  },
-);
+  return (
+    <FormContext.Provider value={state}>
+      <Form.Root data-slot="form-root" {...props} action={formAction} />
+    </FormContext.Provider>
+  );
+}
 FormRoot.displayName = 'FormRoot';
 ```
 
@@ -201,16 +200,17 @@ there were any errors returned by the server for that field, we'll render
 `FormMessage`s for each error.
 
 ```tsx
-const FormField = React.forwardRef<
-  HTMLDivElement,
-  React.ComponentPropsWithoutRef<typeof Form.Field>
->(({ className, children, ...props }, ref) => {
+function FormField({
+  className,
+  children,
+  ...props
+}: React.ComponentProps<typeof Form.Field>) {
   const state = React.useContext(FormContext);
 
   return (
     <Form.Field
       {...props}
-      ref={ref}
+      data-slot="form-field"
       className={cn('space-y-2', className)}
       serverInvalid={Boolean(state.errors[props.name])}
     >
@@ -220,7 +220,7 @@ const FormField = React.forwardRef<
       ))}
     </Form.Field>
   );
-});
+}
 FormField.displayName = 'FormField';
 ```
 
@@ -238,20 +238,20 @@ import * as Form from '@radix-ui/react-form';
 import { cn } from '@/lib/utils';
 import { Label } from '@/components/ui/label';
 
-const FormLabel = React.forwardRef<
-  HTMLLabelElement,
-  React.ComponentPropsWithoutRef<typeof Label>
->(({ className, ...props }, ref) => {
+function FormLabel({
+  className,
+  ...props
+}: React.ComponentProps<typeof Label>) {
   return (
     <Form.Label asChild>
       <Label
         {...props}
-        ref={ref}
-        className={cn('data-[invalid]:text-destructive', className)}
+        data-slot="form-label"
+        className={cn('data-invalid:text-destructive', className)}
       />
     </Form.Label>
   );
-});
+}
 FormLabel.displayName = 'FormLabel';
 ```
 
@@ -273,21 +273,26 @@ import * as Form from '@radix-ui/react-form';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 
-const FormSubmit = React.forwardRef<
-  HTMLButtonElement,
-  React.ComponentPropsWithoutRef<typeof Button>
->(({ className, children, ...props }, ref) => {
+function FormSubmit({
+  className,
+  children,
+  ...props
+}: React.ComponentProps<typeof Button>) {
   const status = useFormStatus();
 
   return (
     <Form.Submit asChild>
-      <Button {...props} ref={ref} className={cn('mt-4', className)}>
-        {status.pending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+      <Button
+        {...props}
+        data-slot="form-submit"
+        className={cn('mt-4', className)}
+      >
+        {status.pending && <Loader2 className="mr-2 size-4 animate-spin" />}
         {children}
       </Button>
     </Form.Submit>
   );
-});
+}
 FormSubmit.displayName = 'FormSubmit';
 ```
 

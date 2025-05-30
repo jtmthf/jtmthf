@@ -6,21 +6,21 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeSlug from 'rehype-slug';
 import remarkFrontmatter from 'remark-frontmatter';
 import remarkGfm from 'remark-gfm';
-import { getHighlighterCore } from 'shiki/core';
-import getWasm from 'shiki/wasm';
+import { createHighlighterCore } from 'shiki/core';
+import { createOnigurumaEngine } from 'shiki/engine/oniguruma';
 
-const highlighter = await getHighlighterCore({
+const highlighter = await createHighlighterCore({
   themes: [
-    import('shiki/themes/github-light.mjs'),
-    import('shiki/themes/github-dark.mjs'),
+    import('@shikijs/themes/github-light'),
+    import('@shikijs/themes/github-dark'),
   ],
   langs: [
-    import('shiki/langs/json.mjs'),
-    import('shiki/langs/sh.mjs'),
-    import('shiki/langs/tsx.mjs'),
-    import('shiki/langs/typescript.mjs'),
+    import('@shikijs/langs/json'),
+    import('@shikijs/langs/sh'),
+    import('@shikijs/langs/tsx'),
+    import('@shikijs/langs/typescript'),
   ],
-  loadWasm: getWasm,
+  engine: createOnigurumaEngine(() => import('shiki/wasm')),
 });
 
 /** @type {import('next').NextConfig} */
