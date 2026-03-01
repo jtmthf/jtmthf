@@ -8,6 +8,12 @@ import Container from '../../_components/container';
 import Header from '../../_components/header';
 import { PostHeader } from '../../_components/post-header';
 
+type Params = {
+  params: Promise<{
+    slug: string;
+  }>;
+};
+
 export default async function Post(props: Params) {
   const params = await props.params;
   const post = await getPostBySlug(params.slug);
@@ -20,8 +26,39 @@ export default async function Post(props: Params) {
     (mod) => mod.default,
   );
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: post.title,
+    description: post.excerpt,
+    image: post.ogImage?.url || post.coverImage,
+    datePublished: post.date,
+    dateModified: post.date,
+    author: {
+      '@type': 'Person',
+      name: post.author.name,
+      url: SITE_URL,
+    },
+    publisher: {
+      '@type': 'Person',
+      name: 'Jack Moore',
+      logo: {
+        '@type': 'ImageObject',
+        url: `${SITE_URL}/og-image.png`,
+      },
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `${SITE_URL}/posts/${post.slug}`,
+    },
+  };
+
   return (
     <main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Alert preview={post.preview} />
       <Container>
         <Header />
@@ -41,12 +78,6 @@ export default async function Post(props: Params) {
   );
 }
 
-type Params = {
-  params: Promise<{
-    slug: string;
-  }>;
-};
-
 export async function generateMetadata(props: Params): Promise<Metadata> {
   const params = await props.params;
   const post = await getPostBySlug(params.slug);
@@ -55,13 +86,38 @@ export async function generateMetadata(props: Params): Promise<Metadata> {
     return notFound();
   }
 
-  const title = `${post.title} | Jack Moore's Blog`;
+  const title = post.title;
+  const url = `${SITE_URL}/posts/${post.slug}`;
 
   return {
     metadataBase: new URL(SITE_URL),
+    title,
+    description: post.excerpt,
     openGraph: {
       title,
-      images: [post.ogImage.url],
+      description: post.excerpt,
+      url,
+      type: 'article',
+      publishedTime: post.date,
+      modifiedTime: post.date,
+      authors: [post.author.name],
+      images: [
+        {
+          url: post.ogImage?.url || post.coverImage,
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description: post.excerpt,
+      images: [post.ogImage?.url || post.coverImage],
+    },
+    alternates: {
+      canonical: url,
     },
   };
 }
