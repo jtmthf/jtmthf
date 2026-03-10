@@ -1,6 +1,10 @@
 import { PostBody } from '@/app/_components/post-body';
+import { TableOfContents } from '@/app/_components/table-of-contents';
+import { extractHeadings } from '@/lib/extract-headings';
+import fs from 'fs';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { join } from 'path';
 import { getAllPosts, getPostBySlug } from '../../../lib/api';
 import { SITE_URL } from '../../../lib/constants';
 import Alert from '../../_components/alert';
@@ -25,6 +29,10 @@ export default async function Post(props: Params) {
   const Content = await import(`@/_posts/${params.slug}.mdx`).then(
     (mod) => mod.default,
   );
+
+  const mdxPath = join(process.cwd(), 'src/_posts', `${params.slug}.mdx`);
+  const mdxContent = fs.readFileSync(mdxPath, 'utf-8');
+  const headings = extractHeadings(mdxContent);
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -69,9 +77,20 @@ export default async function Post(props: Params) {
             date={post.date}
             author={post.author}
           />
-          <PostBody>
-            <Content />
-          </PostBody>
+          <div className="relative mx-auto flex max-w-5xl gap-12">
+            <div className="min-w-0 flex-1">
+              <PostBody>
+                <Content />
+              </PostBody>
+            </div>
+            {headings.length > 0 && (
+              <aside className="hidden lg:block">
+                <div className="sticky top-8 w-56 shrink-0">
+                  <TableOfContents headings={headings} />
+                </div>
+              </aside>
+            )}
+          </div>
         </article>
       </Container>
     </main>
