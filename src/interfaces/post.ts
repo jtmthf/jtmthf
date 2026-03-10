@@ -11,5 +11,6 @@ export type Post = {
   ogImage: {
     url: string;
   };
+  tags?: string[];
   preview?: boolean;
 };

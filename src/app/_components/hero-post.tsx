@@ -3,6 +3,7 @@ import CoverImage from '@/app/_components/cover-image';
 import { type Author } from '@/interfaces/author';
 import Link from 'next/link';
 import DateFormatter from './date-formatter';
+import { TagChip } from './tag-chip';
 
 type Props = {
   title: string;
@@ -11,6 +12,7 @@ type Props = {
   excerpt: string;
   author: Author;
   slug: string;
+  tags?: string[];
 };
 
 export function HeroPost({
@@ -20,6 +22,7 @@ export function HeroPost({
   excerpt,
   author,
   slug,
+  tags,
 }: Props) {
   return (
     <section>
@@ -39,6 +42,13 @@ export function HeroPost({
         </div>
         <div>
           <p className="mb-4 text-lg leading-relaxed">{excerpt}</p>
+          {tags && tags.length > 0 && (
+            <div className="mb-4 flex flex-wrap gap-2">
+              {tags.map((tag) => (
+                <TagChip key={tag} tag={tag} />
+              ))}
+            </div>
+          )}
           <Avatar name={author.name} picture={author.picture} />
         </div>
       </div>

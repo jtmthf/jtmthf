@@ -1,8 +1,8 @@
-import { getAllPosts } from '@/lib/api';
+import { getAllPosts, getAllTags, slugifyTag } from '@/lib/api';
 import { MetadataRoute } from 'next';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const allPosts = await getAllPosts();
+  const [allPosts, allTags] = await Promise.all([getAllPosts(), getAllTags()]);
 
   return [
     {
@@ -11,12 +11,26 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'daily',
       priority: 1,
     },
+    {
+      url: 'https://www.jtmthf.com/tags',
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.6,
+    },
     ...allPosts.map((post) => {
       return {
         url: `https://www.jtmthf.com/posts/${post.slug}`,
         lastModified: new Date(),
         changeFrequency: 'weekly',
         priority: 0.5,
+      } satisfies MetadataRoute.Sitemap[number];
+    }),
+    ...allTags.map(({ tag }) => {
+      return {
+        url: `https://www.jtmthf.com/tags/${slugifyTag(tag)}`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly',
+        priority: 0.4,
       } satisfies MetadataRoute.Sitemap[number];
     }),
   ];
