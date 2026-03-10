@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Avatar from './avatar';
 import CoverImage from './cover-image';
 import DateFormatter from './date-formatter';
+import { TagChip } from './tag-chip';
 
 type Props = {
   title: string;
@@ -11,6 +12,7 @@ type Props = {
   excerpt: string;
   author: Author;
   slug: string;
+  tags?: string[];
 };
 
 export function PostPreview({
@@ -20,6 +22,7 @@ export function PostPreview({
   excerpt,
   author,
   slug,
+  tags,
 }: Props) {
   return (
     <div>
@@ -35,6 +38,13 @@ export function PostPreview({
         <DateFormatter dateString={date} />
       </div>
       <p className="mb-4 text-lg leading-relaxed">{excerpt}</p>
+      {tags && tags.length > 0 && (
+        <div className="mb-4 flex flex-wrap gap-2">
+          {tags.map((tag) => (
+            <TagChip key={tag} tag={tag} />
+          ))}
+        </div>
+      )}
       <Avatar name={author.name} picture={author.picture} />
     </div>
   );

@@ -22,6 +22,7 @@ export default async function Index() {
           author={heroPost.author}
           slug={heroPost.slug}
           excerpt={heroPost.excerpt}
+          tags={heroPost.tags}
         />
         {morePosts.length > 0 && <MoreStories posts={morePosts} />}
       </Container>

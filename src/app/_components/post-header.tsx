@@ -3,15 +3,17 @@ import { type Author } from '@/interfaces/author';
 import Avatar from './avatar';
 import CoverImage from './cover-image';
 import DateFormatter from './date-formatter';
+import { TagChip } from './tag-chip';
 
 type Props = {
   title: string;
   coverImage: string;
   date: string;
   author: Author;
+  tags?: string[];
 };
 
-export function PostHeader({ title, coverImage, date, author }: Props) {
+export function PostHeader({ title, coverImage, date, author, tags }: Props) {
   return (
     <>
       <PostTitle>{title}</PostTitle>
@@ -28,6 +30,13 @@ export function PostHeader({ title, coverImage, date, author }: Props) {
         <div className="mb-6 text-lg">
           <DateFormatter dateString={date} />
         </div>
+        {tags && tags.length > 0 && (
+          <div className="mb-6 flex flex-wrap gap-2">
+            {tags.map((tag) => (
+              <TagChip key={tag} tag={tag} />
+            ))}
+          </div>
+        )}
       </div>
     </>
   );
