@@ -150,6 +150,9 @@
   * {
     @apply border-border;
   }
+  html {
+    scroll-behavior: smooth;
+  }
   body {
     @apply bg-background text-foreground;
   }
@@ -163,4 +166,19 @@ html.dark .shiki span {
   font-style: var(--shiki-dark-font-style) !important;
   font-weight: var(--shiki-dark-font-weight) !important;
   text-decoration: var(--shiki-dark-text-decoration) !important;
+}
+
+/* Code block: filename title label from rehype-pretty-code */
+figcaption[data-rehype-pretty-code-title] {
+  @apply bg-muted text-muted-foreground rounded-t-lg border border-b-0 px-4 py-2 font-mono text-sm font-medium;
+}
+
+figcaption[data-rehype-pretty-code-title] + .group > pre {
+  @apply rounded-t-none;
+}
+
+/* Code block: language badge — only shown when no copy button overlaps */
+pre[data-language]:not(:has(~ button))::after {
+  content: attr(data-language);
+  @apply text-muted-foreground pointer-events-none absolute bottom-2 right-3 font-mono text-xs uppercase;
 }

@@ -1,6 +1,8 @@
 import type { MDXComponents } from 'mdx/types';
 import Image from 'next/image';
 
+import { CodeBlock } from '@/components/code-block';
+
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     img: (props) => (
@@ -17,6 +19,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       />
     ),
     Image,
+    pre: (props) => <CodeBlock {...props} />,
     ...components,
   };
 }
